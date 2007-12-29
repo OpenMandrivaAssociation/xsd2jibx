@@ -3,13 +3,14 @@
 
 Name:           xsd2jibx
 Version:        0.2b
-Release:        %mkrel 0.0.2
+Release:        %mkrel 0.0.3
 Epoch:          0
 Summary:        Generating Code and Binding from Schema
 License:        BSD
 Group:          Development/Java
 URL:            http://jibx.sourceforge.net/xsd2jibx/index.html
 Source0:        http://superb-east.dl.sourceforge.net/sourceforge/jibx/xsd2jibx-beta2b.zip
+Source1:        xsd2jibx.sh
 Requires:       ant
 Requires:       jakarta-commons-lang
 Requires:       jakarta-commons-logging
@@ -86,6 +87,9 @@ popd
 %{__cp} -a api/* %{buildroot}%{_javadocdir}/%{name}-%{version}
 %{__ln_s} %{name}-%{version} %{buildroot}%{_javadocdir}/%{name}
 
+%{__mkdir_p} %{buildroot}%{_bindir}
+%{__cp} -a %{SOURCE1} %{buildroot}%{_bindir}/xsd2jibx
+
 %if %{gcj_support}
 %{_bindir}/aot-compile-rpm
 %endif
@@ -104,6 +108,7 @@ popd
 %files
 %defattr(0644,root,root,0755)
 %doc docs/*
+%attr(0755,root,root) %{_bindir}/xsd2jibx
 %{_javadir}/*.jar
 %if %{gcj_support}
 %dir %{_libdir}/gcj/%{name}
