@@ -3,7 +3,7 @@
 
 Name:           xsd2jibx
 Version:        0.2b
-Release:        %mkrel 0.0.1
+Release:        %mkrel 0.0.2
 Epoch:          0
 Summary:        Generating Code and Binding from Schema
 License:        BSD
@@ -68,10 +68,10 @@ Javadoc documentation for %{name}.
 %build
 export CLASSPATH=$(build-classpath commons-lang commons-logging jaxme/ws-jaxmejs log4j xpp3 ant jibx/run)
 export OPT_JAR_LIST=:
-pushd src
+pushd src/main
 %{javac} `%{_bindir}/find . -name '*.java'`
-%{jar} cvf ../%{name}-%{version}.jar `%{_bindir}/find . -name '*.class'`
-%{javadoc} -d ../api `%{_bindir}/find . -name '*.java'`
+%{jar} cvf ../../%{name}-%{version}.jar `%{_bindir}/find . -name '*.class'`
+%{javadoc} -d ../../api `%{_bindir}/find . -name '*.java'`
 popd
 
 %install
