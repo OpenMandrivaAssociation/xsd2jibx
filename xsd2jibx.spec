@@ -3,7 +3,7 @@
 
 Name:           xsd2jibx
 Version:        0.2b
-Release:        %mkrel 0.0.3
+Release:        %mkrel 0.0.4
 Epoch:          0
 Summary:        Generating Code and Binding from Schema
 License:        BSD
@@ -11,6 +11,7 @@ Group:          Development/Java
 URL:            http://jibx.sourceforge.net/xsd2jibx/index.html
 Source0:        http://superb-east.dl.sourceforge.net/sourceforge/jibx/xsd2jibx-beta2b.zip
 Source1:        xsd2jibx.sh
+Source2:        http://jibx.cvs.sourceforge.net/*checkout*/jibx/xsd2jibx/new-build.xml
 Requires:       ant
 Requires:       jakarta-commons-lang
 Requires:       jakarta-commons-logging
@@ -62,16 +63,16 @@ Javadoc documentation for %{name}.
 
 %prep
 %setup -q -n %{name}
+%{__cp} -a %{SOURCE2} build.xml
 %{__mkdir_p} api
 %{_bindir}/find . -name '*.jar' | %{_bindir}/xargs -t %{__rm}
 %{_bindir}/find . -name '*.css' | %{_bindir}/xargs -t %{__perl} -pi -e 's/\r$//g'
 
 %build
-export CLASSPATH=$(build-classpath commons-lang commons-logging jaxme/ws-jaxmejs log4j xpp3 ant jibx/run)
+export CLASSPATH=$(build-classpath commons-lang commons-logging jaxme/ws-jaxmejs log4j xpp3 ant jibx bcel)
 export OPT_JAR_LIST=:
+%{ant} -Djibxhome=.
 pushd src/main
-%{javac} `%{_bindir}/find . -name '*.java'`
-%{jar} cvf ../../%{name}-%{version}.jar `%{_bindir}/find . -name '*.class'`
 %{javadoc} -d ../../api `%{_bindir}/find . -name '*.java'`
 popd
 
@@ -80,7 +81,7 @@ popd
 
 %{__mkdir_p} %{buildroot}%{_javadir}
 
-%{__cp} -a %{name}-%{version}.jar %{buildroot}%{_javadir}/%{name}-%{version}.jar
+%{__cp} -a lib/xsd2jibx.jar %{buildroot}%{_javadir}/%{name}-%{version}.jar
 %{__ln_s} %{name}-%{version}.jar %{buildroot}%{_javadir}/%{name}.jar
 
 %{__mkdir_p} %{buildroot}%{_javadocdir}/%{name}-%{version}
