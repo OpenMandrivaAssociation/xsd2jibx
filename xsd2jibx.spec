@@ -3,7 +3,7 @@
 
 Name:           xsd2jibx
 Version:        0.2b
-Release:        %mkrel 0.0.4
+Release:        %mkrel 0.0.5
 Epoch:          0
 Summary:        Generating Code and Binding from Schema
 License:        BSD
