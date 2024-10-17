@@ -8,7 +8,7 @@ Epoch:          0
 Summary:        Generating Code and Binding from Schema
 License:        BSD
 Group:          Development/Java
-URL:            http://jibx.sourceforge.net/xsd2jibx/index.html
+URL:            https://jibx.sourceforge.net/xsd2jibx/index.html
 Source0:        http://superb-east.dl.sourceforge.net/sourceforge/jibx/xsd2jibx-beta2b.zip
 Source1:        xsd2jibx.sh
 Source2:        http://jibx.cvs.sourceforge.net/*checkout*/jibx/xsd2jibx/new-build.xml
